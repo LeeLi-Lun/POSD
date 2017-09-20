@@ -26,7 +26,7 @@ double sumOfPerimeter(const std::vector<Shape *> & shapes){
 Shape* theLargestArea(const std::vector<Shape *> & shapes){
 
     Shape *largestShape = nullptr;
-    double largestArea = 0;
+    double largestArea = 0; 
 
     for (Shape *shapePoint: shapes)
         if(shapePoint->area() >= largestArea){
