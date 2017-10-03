@@ -13,21 +13,21 @@ utAtom: mainAtom.o atom.o
 mainAtom.o: mainAtom.cpp utAtom.h
 	g++ -std=c++11 -c mainAtom.cpp
 atom.o: atom.cpp $(INC_DIR)/atom.h
-	g++ -std=gnu++0x -c atom.cpp
+	g++ -std=c++11 -c atom.cpp
 
 utVariable: mainVariable.o variable.o
 		g++ -o utVariable mainVariable.o variable.o -lgtest -lpthread
 mainVariable.o: mainVariable.cpp utVariable.h
 		g++ -std=c++11 -c mainVariable.cpp
 variable.o: variable.cpp $(INC_DIR)/variable.h
-		g++ -std=gnu++0x -c variable.cpp
+		g++ -std=c++11 -c variable.cpp
 
 utNumber: mainNumber.o number.o
 		g++ -o utNumber mainNumber.o number.o -lgtest -lpthread
 mainNumber.o: mainNumber.cpp utNumber.h
 		g++ -std=c++11 -c mainNumber.cpp
 number.o: number.cpp $(INC_DIR)/number.h
-		g++ -std=gnu++0x -c number.cpp
+		g++ -std=c++11 -c number.cpp
 
 clean:
 	rm -f *.o hw2 utAtom utNumber utVariable
