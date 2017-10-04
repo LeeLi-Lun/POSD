@@ -1,5 +1,5 @@
-#include "include/number.h"
-#include "include/atom.h"
+#include "number.h"
+#include "atom.h"
 //#include "variable.h"
 
 bool Number::match(Number &a, Atom &b){
