@@ -3,10 +3,10 @@
 bool Atom::match(Atom &b){
   bool isMatch = true;
 
-  if( _symbol != b.symbol() ){
+  if( this._symbol != b.symbol() ){
     isMatch = false;
   }else{
-    _value = b.value();
+    this._value = b.value();
   }
   return isMatch;
 }
@@ -14,7 +14,7 @@ bool Atom::match(Atom &b){
 bool Atom::match( Number &b){
   bool isMatch = true;
 
-  if( _symbol() != b.symbol() ){
+  if( this._symbol() != b.symbol() ){
     isMatch = false;
   }
   return isMatch;
