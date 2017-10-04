@@ -1,4 +1,4 @@
-#include "include/atom.h"
+#include "atom.h"
 
 bool Atom::match(Atom &a, Atom &b){
   bool isMatch = true;
