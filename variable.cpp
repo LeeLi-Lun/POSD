@@ -4,10 +4,10 @@
 
 bool Variable::match( Atom &b){
   bool isMatch = true;
-  if(this.value().length()==0 ){
+  if(this->value().length()==0 ){
     this->_value = b.value();
   }
-  if( this.value() != b.value() ){
+  if( this->value() != b.value() ){
     isMatch = false;
   }
   return isMatch;
