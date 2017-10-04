@@ -22,9 +22,9 @@ public:
   string value(){
     return _value;
   }
-  bool match(Atom &a, Atom &b);
-  bool match(Atom &a, Number &b);
-  bool match(Atom &b, Variable &a);
+  bool match( Atom &b);
+  bool match( Number &b);
+  bool match( Variable &a);
 private:
   string  _symbol;
   string  _value;
