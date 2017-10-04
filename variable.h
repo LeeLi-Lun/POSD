@@ -20,9 +20,9 @@ public:
   string value(){
     return _value;
   }
-  bool match(Variable &a, Atom &b);
-  bool match(Variable &a, Number &b);
-  bool match(Variable &a, Variable &b);
+  bool match( Atom &b);
+  bool match(Number &b);
+  bool match( Variable &b);
 
   string _value ;
 private:
