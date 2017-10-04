@@ -14,7 +14,7 @@ bool Atom::match(Atom &b){
 bool Atom::match( Number &b){
   bool isMatch = true;
 
-  if( this->_symbol() != b.symbol() ){
+  if( this->symbol() != b.symbol() ){
     isMatch = false;
   }
   return isMatch;
