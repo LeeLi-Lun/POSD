@@ -1,6 +1,6 @@
-#include "include/variable.h"
-#include "include/number.h"
-#include "include/atom.h"
+#include "variable.h"
+#include "number.h"
+#include "atom.h"
 
 bool Variable::match(Variable &a, Atom &b){
   bool isMatch = true;
