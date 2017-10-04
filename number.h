@@ -12,14 +12,14 @@ class Atom;
 class Number{
 public:
   Number(int i){
-    _value = i;
+    _value = std::to_string( i);
     _symbol = std::to_string(i);
   }
 
   string symbol(){
     return _symbol;
   }
-  int value(){
+  string value(){
     return _value;
   }
   bool match( Atom &b);
@@ -27,7 +27,7 @@ public:
   bool match(Variable &a);
 private:
    string _symbol;
-   int  _value;
+   string  _value;
 };
 
 #endif
