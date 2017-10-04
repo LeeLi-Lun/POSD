@@ -3,10 +3,10 @@
 bool Atom::match(Atom &b){
   bool isMatch = true;
 
-  if( this.symbol() != b.symbol() ){
+  if( this->symbol() != b.symbol() ){
     isMatch = false;
   }else{
-    _value = b.value();
+    this->_value = b.value();
   }
   return isMatch;
 }
