@@ -10,7 +10,7 @@ else
 endif
 
 main.o: main.cpp utTerm.h
-	g++ --std=c++11  main.cpp
+	g++ -std=gnu++0x -c  main.cpp
 
 utAtom: mainAtom.o atom.o
 ifeq (${OS}, Windows_NT)
@@ -19,9 +19,9 @@ else
 	g++ -o utAtom mainAtom.o  atom.o  -lgtest -lpthread
 endif
 mainAtom.o: mainAtom.cpp utAtom.h
-	g++ --std=c++11  mainAtom.cpp
+	g++ -std=gnu++0x -c  mainAtom.cpp
 atom.o: atom.cpp $(INC_DIR)/atom.h
-	g++ --std=c++11  atom.cpp
+	g++ -std=gnu++0x -c  atom.cpp
 
 utVariable: mainVariable.o variable.o
 ifeq (${OS}, Windows_NT)
@@ -30,9 +30,9 @@ else
 	g++ -o utVariable mainVariable.o variable.o -lgtest -lpthread
 endif
 mainVariable.o: mainVariable.cpp utVariable.h
-		g++ --std=c++11  mainVariable.cpp
+		g++ -std=gnu++0x -c  mainVariable.cpp
 variable.o: variable.cpp $(INC_DIR)/variable.h
-		g++ --std=c++11  variable.cpp
+		g++ -std=gnu++0x -c  variable.cpp
 
 utNumber: mainNumber.o number.o
 ifeq (${OS}, Windows_NT)
@@ -42,9 +42,9 @@ else
 endif
 
 mainNumber.o: mainNumber.cpp utNumber.h
-		g++ --std=c++11  mainNumber.cpp
+		g++ -std=gnu++0x -c  mainNumber.cpp
 number.o: number.cpp $(INC_DIR)/number.h
-		g++ --std=c++11  number.cpp
+		g++ -std=gnu++0x -c  number.cpp
 
 clean:
 ifeq (${OS}, Windows_NT)
