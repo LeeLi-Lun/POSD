@@ -2,32 +2,32 @@
 #include "atom.h"
 //#include "variable.h"
 
-bool Number::match(Number &a, Atom &b){
+bool Number::match( Atom &b){
   bool isMatch = true;
 
-  if( a.symbol()!= b.value() ){
+  if( this.symbol() != b.value() ){
     isMatch = false;
   }
   return isMatch;
 }
 
-bool Number::match(Number &a, Number &b){
+bool Number::match( Number &b){
   bool isMatch = true;
 
-  if( a.value() != b.value() ){
+  if( this.value() != b.value() ){
     isMatch = false;
   }else{
-      a._value = b.value();
+      this._value = b.value();
   }
   return isMatch;
 }
 
-bool Number::match(Number &b, Variable &a){
+bool Number::match(Variable &a){
   bool isMatch = true;
   if(a.value().length()==0 ){
-    a._value = b.symbol();;
+    a._value = this.symbol();;
   }
-  if(a.value() != b.symbol() ){
+  if(a.value() != this.symbol() ){
     isMatch = false;
   }
   return isMatch;
