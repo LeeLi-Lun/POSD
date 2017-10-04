@@ -1,5 +1,3 @@
-INC_DIR = include
-
 all: hw2
 
 hw2: main.o mainAtom.o atom.o mainVariable.o variable.o mainNumber.o number.o
@@ -20,7 +18,7 @@ else
 endif
 mainAtom.o: mainAtom.cpp utAtom.h
 	g++ -std=gnu++0x -c  mainAtom.cpp
-atom.o: atom.cpp $(INC_DIR)/atom.h
+atom.o: atom.cpp atom.h
 	g++ -std=gnu++0x -c  atom.cpp
 
 utVariable: mainVariable.o variable.o
@@ -31,7 +29,7 @@ else
 endif
 mainVariable.o: mainVariable.cpp utVariable.h
 		g++ -std=gnu++0x -c  mainVariable.cpp
-variable.o: variable.cpp $(INC_DIR)/variable.h
+variable.o: variable.cpp variable.h
 		g++ -std=gnu++0x -c  variable.cpp
 
 utNumber: mainNumber.o number.o
@@ -43,7 +41,7 @@ endif
 
 mainNumber.o: mainNumber.cpp utNumber.h
 		g++ -std=gnu++0x -c  mainNumber.cpp
-number.o: number.cpp $(INC_DIR)/number.h
+number.o: number.cpp number.h
 		g++ -std=gnu++0x -c  number.cpp
 
 clean:
