@@ -19,7 +19,7 @@ TEST(Number, call_symbol_method){
 TEST(Number, call_match_method) {
     Number one(1);
     Number two(2);
-    ASSERT_FALSE(one.match(one,two));
+    ASSERT_FALSE(one.match(two));
 }
 
 TEST(Number, match_and_then_test_value_symbol) {
@@ -27,7 +27,7 @@ TEST(Number, match_and_then_test_value_symbol) {
   Number two(2);
   EXPECT_EQ(1,one.value());
   EXPECT_EQ("1",one.symbol());
-  EXPECT_FALSE(one.match(one,two));
+  EXPECT_FALSE(one.match(two));
   EXPECT_EQ(1,one.value());
   ASSERT_EQ("1",one.symbol());
 }
