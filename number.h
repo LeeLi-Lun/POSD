@@ -22,9 +22,9 @@ public:
   int value(){
     return _value;
   }
-  bool match(Number &a, Atom &b);
-  bool match(Number &a, Number &b);
-  bool match(Number &b, Variable &a);
+  bool match( Atom &b);
+  bool match(Number &b);
+  bool match(Variable &a);
 private:
    string _symbol;
    int  _value;
