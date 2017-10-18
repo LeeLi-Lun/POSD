@@ -60,7 +60,7 @@ public:
     }else if(term.getClassName()=="Variable"){
       
 
-      }
+      
       
     }else{//(a.getClassName()=="Struct")
 
