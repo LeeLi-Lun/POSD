@@ -1,7 +1,7 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
-#include "term.h"
+#include "atom.h"
 
 class Struct : public Term{
 public:
