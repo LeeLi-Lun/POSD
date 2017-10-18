@@ -1,33 +1,47 @@
 #ifndef NUMBER_H
 #define NUMBER_H
 
-#include <string>
-#include "variable.h"
+#include "term.h"
 
-using std::string;
-
-class Atom;
-//class Variable;
-
-class Number{
+class Number : public Term{
 public:
-  Number(int i){
-    _value = std::to_string( i);
-    _symbol = std::to_string(i);
+  Number(double value){
+    ss << value;
+    *_value = ss.str();
   }
 
-  string symbol(){
-    return _symbol;
+  std::string symbol() const {
+    return value();
   }
-  string value(){
-    return _value;
+  std::string value() const {
+    return *_value;
   }
-  bool match( Atom &b);
-  bool match(Number &b);
-  bool match(Variable &a);
+
+  std::string getClassName() const {
+    return "Number";
+  }
+
+  bool match(Term &term){
+    bool isMatch = true;
+
+    if(term.getClassName()=="Atom"){
+      isMatch = false;
+    }else if(term.getClassName()=="Number"){
+      Number * ps = dynamic_cast<Number *>(&term);
+      if(ps->value() != this->value()){
+        isMatch = false;
+      }
+    }else if(term.getClassName()=="Variable"){
+
+    }else{//(a.getClassName()=="Struct")
+
+    }
+    return isMatch;
+  }
+
+  string *_value = new string[1];
 private:
-   string _symbol;
-   string  _value;
+  stringstream ss;
 };
 
 #endif

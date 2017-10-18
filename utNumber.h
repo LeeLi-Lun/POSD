@@ -7,13 +7,13 @@ TEST(Number, first_test){
 }
 
 TEST(Number, call_value_method){
-    Number one(1);
-    ASSERT_EQ("1",one.value());
+    Number one(1.1);
+    ASSERT_EQ("1.1",one.value());
 }
 
 TEST(Number, call_symbol_method){
     Number ten(10);
-    ASSERT_EQ("10",ten.symbol());
+    ASSERT_EQ("10",ten.value());
 }
 
 TEST(Number, call_match_method) {
