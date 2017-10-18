@@ -59,8 +59,8 @@ public:
       isMatch = false;
     }else if(term.getClassName()=="Variable"){
       
-      if(term->value()->length()==0){
-        term->_value = ps->_symbol;
+      if(term.value()->length()==0){
+        term._value = symbol();
       }else{
         isMatch = false;
       }
