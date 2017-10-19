@@ -145,8 +145,9 @@ TEST (Variable, Struct2) {
   Atom teddy("teddy");
   std::vector<Term *> v = {&X};
   Struct s(Atom("s"), v);
-  X.match(teddy);
   Y.match(s);
+  X.match(teddy);
+ // Y.match(s);
 
   EXPECT_EQ("Y",Y.symbol());
   EXPECT_EQ("s(teddy)",Y.value());
