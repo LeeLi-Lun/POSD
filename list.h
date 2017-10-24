@@ -52,6 +52,14 @@ public:
   bool match(Term & term){
     bool isMatch = true;
 
+    if(term.getClassName()=="Atom"){
+      isMatch = false;
+    }
+
+    if(term.getClassName()=="Number"){
+      isMatch = false;
+    }
+
     if(term.getClassName()=="List"){
       List * ps = dynamic_cast<List *>(&term);
       if(ps->_elements.size()!=_elements.size())
