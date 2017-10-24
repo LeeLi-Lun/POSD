@@ -226,10 +226,11 @@ TEST (List, emptyExecptionOfHead) {
   List l(args);
   try{
     l.head();
+    FAIL() << "Expected std::out_of_range";
   }
-  catch(const AssessException& e){
-     EXPECT_EQ("Accessing head in an empty list",e.what());
-  }
+  catch(const std::out_of_range & err){
+    ASSERT_STREQ("Accessing head in an empty list",err.what());
+   }
 
 }
 
@@ -239,9 +240,15 @@ TEST (List, emptyExecptionOfHead) {
 TEST (List, emptyExecptionOfTail) {
   vector<Term *> args = {};
   List l(args);
+  try{
+    l.tail();
+    FAIL() << "Expected std::out_of_range";
+  }
+  catch (const std::out_of_range & err) {
+    ASSERT_STREQ("Accessing head in an empty list",err.what());
+  }
+
 }
-
-
 
 
 #endif

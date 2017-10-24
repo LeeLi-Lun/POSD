@@ -2,9 +2,11 @@
 #define LIST_H
 
 #include "variable.h"
-
+#include <stdexcept>
 #include <vector>
+
 using std::vector;
+using std::out_of_range;
 
 class List : public Term {
 public:
@@ -75,20 +77,26 @@ public:
   List (): _elements() {}
   List (vector<Term *> const & elements):_elements(elements){}
   Term * head() const{
+
     if(_elements.size()==0){
-      throw AssessException("Accessing head in an empty list") ;
+      throw out_of_range("Accessing head in an empty list") ;
     }else{
       return _elements[0];
     }
   }
 
   List * tail() const{
-    vector<Term *> v;
-    for(int i = 1; i < _elements.size() ; i++){
-      v.push_back(_elements[i]);
+    if(_elements.size()==0){
+      throw out_of_range("Accessing head in an empty list");
+    }else{
+      vector<Term *> v;
+      for(int i = 1; i < _elements.size() ; i++){
+        v.push_back(_elements[i]);
+      }
+      List *l = new List(v);
+
+      return l;
     }
-    List *l = new List(v);
-    return l;
   }
 
 
