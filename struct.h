@@ -56,6 +56,10 @@ public:
     if(term.getClassName()=="Variable"){
     }
 
+    if(term.getClassName()=="List"){
+      isMatch = false;
+    }
+
     if(term.getClassName()=="Struct"){
       Struct * ps = dynamic_cast<Struct *>(&term);
       if (ps){

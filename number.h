@@ -37,6 +37,8 @@ public:
       }else{
         isMatch = false;
       }
+    }else if(term.getClassName()=="List"){
+      isMatch = false;
     }else{//(a.getClassName()=="Struct")
 
     }

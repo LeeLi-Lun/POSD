@@ -58,13 +58,15 @@ public:
     }else if(term.getClassName()=="Number"){
       isMatch = false;
     }else if(term.getClassName()=="Variable"){
-      
+
       if(term._value->length()==0){
         *(term._value) = this->symbol();
       }else{
         isMatch = false;
       }
-      
+
+    }else if(term.getClassName()=="List"){
+      isMatch = false;
     }else{//(a.getClassName()=="Struct")
 
     }

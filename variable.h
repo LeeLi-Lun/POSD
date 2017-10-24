@@ -65,8 +65,17 @@ public:
          isMatch = false;
        }
      }
+     if(term.getClassName()=="List"){
+       if( this->_value->length()==0){
+         *_value = term.value();
+       }else{
+         isMatch = false;
+       }
+     }
+
      return isMatch;
    }
+
 
 private:
   string *_value = new string[1];
