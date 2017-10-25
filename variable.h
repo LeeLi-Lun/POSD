@@ -36,7 +36,6 @@ public:
        Number * ps = dynamic_cast<Number *>(&term);
        if(this->_value->length()==0 ){
         *_value = ps->value();
-         _value = temp->_value;
        }
        if( this->value() != term.value() ){
          isMatch = false;
