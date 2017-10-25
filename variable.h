@@ -5,31 +5,9 @@
 
 class Variable : public Term{
 public:
+
   
-public:
-  Variable(string s){
-    Term(&s);
-    *_inst = "0";
-  }
-  string value() const {
-    if (_inst)
-      return _inst->value();
-    else
-      return Term::value();
-  }
-  bool match( Term & term ){
-    if (this == &term)
-      return true;
-    if(!_inst){
-      _inst = &term ;
-      return true;
-    }
-    return _inst->match(term);
-  }
-private:
-  Term * _inst;
-  
-/*
+
   Variable(string s):_symbol(s),temp(0){}
 
   string symbol() const {
@@ -39,11 +17,11 @@ private:
   string value() const {
     return *_value;
   }
-*/
+
   string getClassName() const {
      return "Variable";
    }
-/*
+
    bool match(Term &term){
      bool isMatch = true;
      if(term.getClassName()=="Atom"){
@@ -99,7 +77,7 @@ private:
 
      return isMatch;
    }
-*/
+
 
 private:
   string *_value = new string[1];
