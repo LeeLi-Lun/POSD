@@ -25,7 +25,7 @@ public:
      if(term.getClassName()=="Atom"){
        Atom * ps = dynamic_cast<Atom *>(&term);
        if(this->_value->length()==0){
-         this = &term;
+         this = term;
         // *_value = ps->symbol();
         //  ps->_symbol = this->_value;
      }
