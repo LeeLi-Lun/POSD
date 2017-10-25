@@ -227,8 +227,8 @@ TEST (List, emptyExecptionOfHead) {
   try{
     l.head();
   }
-  catch( const string err){
-    ASSERT_STREQ("Accessing head in an empty list",err);
+  catch( const string &err){
+    ASSERT_STREQ("Accessing head in an empty list",err.what());
    }
 
 }
@@ -242,8 +242,8 @@ TEST (List, emptyExecptionOfTail) {
   try{
     l.tail();
   }
-  catch ( const string err) {
-    ASSERT_STREQ("Accessing head in an empty list",err);
+  catch ( const string  &err) {
+    ASSERT_STREQ("Accessing head in an empty list",err.what());
   }
 
 }
