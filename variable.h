@@ -6,7 +6,7 @@
 class Variable : public Term{
 public:
 
-  Variable(string s):_symbol(s){}
+  Variable(string s):_symbol(s),temp(0){}
 
   string symbol() const {
     return _symbol;
@@ -25,9 +25,8 @@ public:
      if(term.getClassName()=="Atom"){
        Atom * ps = dynamic_cast<Atom *>(&term);
        if(this->_value->length()==0){
-         this = term;
-        // *_value = ps->symbol();
-        //  ps->_symbol = this->_value;
+         *_value = ps->symbol();
+          ps->_symbol = this->_value;
      }
        if( *_value != term.symbol() ){
          isMatch = false;
@@ -36,8 +35,8 @@ public:
      if(term.getClassName()=="Number"){
        Number * ps = dynamic_cast<Number *>(&term);
        if(this->_value->length()==0 ){
-         *_value = ps->value();
-          ps->_value = this->_value ;
+         temp = &term;
+         _value = temp->_value;
        }
        if( this->value() != term.value() ){
          isMatch = false;
@@ -81,6 +80,7 @@ public:
 private:
   string *_value = new string[1];
   string _symbol;
+  Term * temp;
 };
 
 #endif
