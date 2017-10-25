@@ -91,7 +91,7 @@ public:
   Term * head() const{
 
     if(_elements.size()==0){
-      throw "Accessing head in an empty list" ;
+      throw string("Accessing head in an empty list") ;
     }else{
       return _elements[0];
     }
@@ -99,7 +99,7 @@ public:
 
   List * tail() const{
     if(_elements.size()==0){
-      throw "Accessing head in an empty list";
+      throw string("Accessing head in an empty list");
     }else{
       vector<Term *> v;
       for(int i = 1; i < _elements.size() ; i++){
