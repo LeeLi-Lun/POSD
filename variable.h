@@ -8,6 +8,7 @@ public:
   
 public:
   Variable(string s){
+    Term(&s);
     *_inst = "0";
   }
   string value() const {
