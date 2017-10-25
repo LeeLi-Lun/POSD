@@ -243,7 +243,7 @@ TEST (List, emptyExecptionOfTail) {
     l.tail();
   }
   catch ( const string  err) {
-    ASSERT_EQ("Accessing head in an empty list",err);
+    ASSERT_EQ("Accessing tail in an empty list",err);
   }
 
 }
