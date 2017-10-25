@@ -12,7 +12,9 @@ using std::vector;
 class Term{
 
 public:
-
+  Term (){
+    *_symbol = "";
+  }
   virtual string symbol() const {
     return value();
   }
