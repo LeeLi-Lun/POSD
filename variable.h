@@ -7,7 +7,7 @@ class Variable : public Term{
 public:
   
 public:
-  Variable(string s):Term(s){
+  Variable(string s){
     *_inst = "0";
   }
   string value() const {
