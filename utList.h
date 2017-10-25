@@ -229,7 +229,7 @@ TEST (List, emptyExecptionOfHead) {
     FAIL() << "Expected";
   }
   catch(const string & err){
-    ASSERT_STREQ("Accessing head in an empty list",err.what());
+    ASSERT_STREQ("Accessing head in an empty list",err);
    }
 
 }
@@ -245,7 +245,7 @@ TEST (List, emptyExecptionOfTail) {
     FAIL() << "Expected";
   }
   catch (const string & err) {
-    ASSERT_STREQ("Accessing head in an empty list",err.what());
+    ASSERT_STREQ("Accessing head in an empty list",err);
   }
 
 }
