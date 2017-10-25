@@ -25,8 +25,9 @@ public:
      if(term.getClassName()=="Atom"){
        Atom * ps = dynamic_cast<Atom *>(&term);
        if(this->_value->length()==0){
-         *_value = ps->symbol();
-          ps->_symbol = this->_value;
+         this = &term;
+        // *_value = ps->symbol();
+        //  ps->_symbol = this->_value;
      }
        if( *_value != term.symbol() ){
          isMatch = false;
