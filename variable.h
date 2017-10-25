@@ -6,9 +6,7 @@
 class Variable : public Term{
 public:
 
-  
-
-  Variable(string s):_symbol(s),temp(0){}
+  Variable(string s):_symbol(s){}
 
   string symbol() const {
     return _symbol;
@@ -37,7 +35,7 @@ public:
      if(term.getClassName()=="Number"){
        Number * ps = dynamic_cast<Number *>(&term);
        if(this->_value->length()==0 ){
-         temp = &term;
+        *_value = ps->value();
          _value = temp->_value;
        }
        if( this->value() != term.value() ){
