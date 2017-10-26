@@ -79,6 +79,7 @@ public:
 private:
   string *_value = new string[1];
   string _symbol;
+  Term * temp;
 };
 
 #endif
