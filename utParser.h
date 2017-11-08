@@ -1,14 +1,17 @@
 #ifndef UTPARSER_H
 #define UTPARSER_H
 
+#include "term.h"
+#include "atom.h"
+#include "number.h"
+#include "variable.h"
+
 #include "parser.h"
 #include "scanner.h"
-#include "atom.h"
+
 #include "list.h"
-#include "variable.h"
-#include "number.h"
 #include "struct.h"
-#include <typeinfo>
+
 
 class ParserTest : public ::testing::Test {
 protected:

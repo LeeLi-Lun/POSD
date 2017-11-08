@@ -2,34 +2,32 @@
 #define UTATOM_H
 #include "atom.h"
 
-TEST(Atom, firs_test) {
+TEST(Atom, first) {
   ASSERT_TRUE(true);
 }
 
-TEST(Atom, call_symbol_method) {
+TEST(Atom, tom) {
   Atom tom("tom");
-  ASSERT_EQ("tom",tom.symbol());
+  ASSERT_EQ("tom", tom.symbol());
 }
 
-TEST(Atom, call_value_method) {
-  Atom john("john");
-  ASSERT_EQ("john",john.value());
+TEST(Atom, match_tom_and_jerry) {
+  Atom tom("tom");
+  Atom jerry("jerry");
+  EXPECT_FALSE(tom.match(jerry));
+  EXPECT_TRUE(tom.match(tom));
 }
 
-TEST(Atom, call_match_method) {
+TEST(Atom, value)
+{
   Atom tom("tom");
-  Atom john("john");
-  ASSERT_FALSE(tom.match(john));
+  EXPECT_EQ("tom", tom.value());
 }
 
-TEST(Atom, match_and_then_test_value_symbol) {
-  Atom tom("tom");
-  Atom john("john");
-  EXPECT_EQ("tom",tom.value());
-  EXPECT_EQ("tom",tom.symbol());
-  EXPECT_FALSE(tom.match(john));
-  EXPECT_EQ("tom",tom.value());
-  ASSERT_EQ("tom",tom.symbol());
+TEST(Atom, Virtual)
+{
+  Term* t = new Atom("tom");
+  EXPECT_EQ("tom", t->value());
 }
 
 #endif
