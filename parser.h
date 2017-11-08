@@ -40,7 +40,7 @@ public:
           return atom;
     }else if(token == '['){
       _scanner.skipLeadingWhiteSpace();
-      if(_scanner.currentChar() == ')')
+      if(_currentToken == ')')
         throw string("unexpected token");
       if(_scanner.currentChar() == ']'){
         _scanner.nextToken();
