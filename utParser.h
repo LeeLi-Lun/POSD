@@ -182,8 +182,9 @@ TEST_F(ParserTest, parseList) {
 // Then it should return a string: "unexpected token" as exception.
 TEST_F(ParserTest, illegal1) {
   Scanner scanner("[1, 2)");
+  Parser parser(scanner);
   try{
-    Parser parser(scanner);
+    parser.createTerm();
   }
   catch ( const string  err) {
   ASSERT_EQ("unexpected token",err);
