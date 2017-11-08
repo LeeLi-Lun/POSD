@@ -1,74 +1,33 @@
-all: hw4 utAtom utVariable utNumber utStruct utList
+all: hw5 utAtom utVariable utNumber utStruct utList
 
-hw4: main.o
+hw5: mainScanner.o atom.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw4 main.o -lgtest
+	g++ -o hw5 mainScanner.o atom.o -lgtest
 else
-	g++ -o hw4 main.o -lgtest -lpthread
+	g++ -o hw5 mainScanner.o atom.o -lgtest -lpthread
 endif
-main.o: main.cpp utTerm.h utAtom.h utVariable.h utNumber.h utList.h
-	g++ -std=gnu++0x -c  main.cpp
 
-utAtom: mainAtom.o
-ifeq (${OS}, Windows_NT)
-	g++ -o utAtom mainAtom.o -lgtest
-else
-	g++ -o utAtom mainAtom.o -lgtest -lpthread
-endif
-mainAtom.o: mainAtom.cpp utAtom.h t
-	g++ -std=gnu++0x -c  mainAtom.cpp
+utAtom: mainAtom.o atom.o
+	g++ -o utAtom mainAtom.o atom.o -lgtest -lpthread
+mainAtom.o: mainAtom.cpp utAtom.h atom.h utStruct.h struct.h
+	g++ -std=c++11 -c mainAtom.cpp
 
-utVariable: mainVariable.o
-ifeq (${OS}, Windows_NT)
-	g++ -o utVariable mainVariable.o -lgtest
-else
-	g++ -o utVariable mainVariable.o -lgtest -lpthread
-endif
-mainVariable.o: mainVariable.cpp utVariable.h
-		g++ -std=gnu++0x -c  mainVariable.cpp
+atom.o: atom.cpp atom.h variable.h
+	g++ -std=c++11 -c atom.cpp
 
-utNumber: mainNumber.o
-ifeq (${OS}, Windows_NT)
-	g++ -o utNumber mainNumber.o  -lgtest
-else
-	g++ -o utNumber mainNumber.o  -lgtest -lpthread
-endif
-mainNumber.o: mainNumber.cpp utNumber.h
-		g++ -std=gnu++0x -c  mainNumber.cpp
+utVariable: mainVariable.o atom.o
+		g++ -o utVariable mainVariable.o atom.o -lgtest -lpthread
+mainVariable.o: mainVariable.cpp utVariable.h variable.h
+		g++ -std=c++11 -c mainVariable.cpp
 
-utStruct: mainStruct.o
-ifeq (${OS}, Windows_NT)
-	g++ -o utStruct mainStruct.o  -lgtest
-else
-	g++ -o utStruct mainStruct.o  -lgtest -lpthread
-endif
-mainStruct.o: mainStruct.cpp utStruct.h
-		g++ -std=gnu++0x -c  mainStruct.cpp
+utScanner: mainScanner.o atom.o scanner.h utScanner.h utParser.h parser.h list.h
+	g++ -o utScanner mainScanner.o atom.o -lgtest -lpthread
+mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h  utParser.h parser.h list.h
+	g++ -std=c++11 -c mainScanner.cpp
 
-utTerm: mainTerm.o
-ifeq (${OS}, Windows_NT)
-	g++ -o utTerm mainTerm.o  -lgtest
-else
-	g++ -o utTerm mainTerm.o  -lgtest -lpthread
-endif
-mainTerm.o: mainTerm.cpp utTerm.h
-		g++ -std=gnu++0x -c  mainTerm.cpp
 
-utList: mainList.o
-ifeq (${OS}, Windows_NT)
-	g++ -o utList mainList.o  -lgtest
-else
-	g++ -o utList mainList.o  -lgtest -lpthread
-endif
-mainList.o: mainList.cpp utList.h list.h
-		g++ -std=gnu++0x -c  mainList.cpp
 
 clean:
-ifeq (${OS}, Windows_NT)
-	del *.o *.exe
-else
-	rm -f *.o hw* utAtom utNumber utVariable utStruct utTerm utList
-endif
-
+	rm -f *.o  hw5 utAtom utVariable utNumber utStruct utList
 stat:
 	wc *.h *.cpp

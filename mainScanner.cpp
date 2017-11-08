@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "utAtom.h"
-#include "utStruct.h"
+#include "utScanner.h"
+#include "utParser.h"
 
 int main( int argc , char **argv )
 {
