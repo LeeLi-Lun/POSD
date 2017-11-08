@@ -47,6 +47,8 @@ public:
         return new List();
       }else{
           vector<Term*> t = getArgs();
+          if(_currentToken == ')')
+            throw string("unexpected token");
           if(_currentToken == ']')
             return new List(t);
         }
