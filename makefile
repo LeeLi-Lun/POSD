@@ -1,31 +1,65 @@
-all: hw5 utAtom utVariable utNumber utStruct utList
+all: hw3 utAtom utVariable utNumber utStruct
 
-hw5: mainScanner.o atom.o
+hw3: main.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw5 mainScanner.o atom.o -lgtest
+	g++ -o hw3 main.o -lgtest
 else
-	g++ -o hw5 mainScanner.o atom.o -lgtest -lpthread
+	g++ -o hw3 main.o -lgtest -lpthread
 endif
+main.o: main.cpp utTerm.h utAtom.h utVariable.h utNumber.h
+	g++ -std=gnu++0x -c  main.cpp
 
-utAtom: mainAtom.o atom.o
-	g++ -o utAtom mainAtom.o atom.o -lgtest -lpthread
-mainAtom.o: mainAtom.cpp utAtom.h atom.h utStruct.h struct.h
-	g++ -std=gnu++0x -c mainAtom.cpp
+utAtom: mainAtom.o
+ifeq (${OS}, Windows_NT)
+	g++ -o utAtom mainAtom.o -lgtest
+else
+	g++ -o utAtom mainAtom.o -lgtest -lpthread
+endif
+mainAtom.o: mainAtom.cpp utAtom.h term.h
+	g++ -std=gnu++0x -c  mainAtom.cpp
 
-atom.o: atom.cpp atom.h variable.h
-	g++ -std=gnu++0x -c atom.cpp
+utVariable: mainVariable.o
+ifeq (${OS}, Windows_NT)
+	g++ -o utVariable mainVariable.o -lgtest
+else
+	g++ -o utVariable mainVariable.o -lgtest -lpthread
+endif
+mainVariable.o: mainVariable.cpp utVariable.h term.h
+		g++ -std=gnu++0x -c  mainVariable.cpp
 
-utVariable: mainVariable.o atom.o
-	g++ -o utVariable mainVariable.o atom.o -lgtest -lpthread
-mainVariable.o: mainVariable.cpp utVariable.h variable.h
-		g++ -std=gnu++0x -c mainVariable.cpp
+utNumber: mainNumber.o
+ifeq (${OS}, Windows_NT)
+	g++ -o utNumber mainNumber.o  -lgtest
+else
+	g++ -o utNumber mainNumber.o  -lgtest -lpthread
+endif
+mainNumber.o: mainNumber.cpp utNumber.h term.h
+		g++ -std=gnu++0x -c  mainNumber.cpp
 
-utScanner: mainScanner.o atom.o scanner.h utScanner.h utParser.h parser.h list.h
-	g++ -o utScanner mainScanner.o atom.o -lgtest -lpthread
-mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h  utParser.h parser.h list.h
-	g++ -std=gnu++0x -c mainScanner.cpp
+utStruct: mainStruct.o
+ifeq (${OS}, Windows_NT)
+	g++ -o utStruct mainStruct.o  -lgtest
+else
+	g++ -o utStruct mainStruct.o  -lgtest -lpthread
+endif
+mainStruct.o: mainStruct.cpp utStruct.h term.h
+		g++ -std=gnu++0x -c  mainStruct.cpp
+
+utTerm: mainTerm.o
+ifeq (${OS}, Windows_NT)
+	g++ -o utTerm mainTerm.o  -lgtest
+else
+	g++ -o utTerm mainTerm.o  -lgtest -lpthread
+endif
+mainTerm.o: mainTerm.cpp utTerm.h term.h
+		g++ -std=gnu++0x -c  mainTerm.cpp
 
 clean:
-	rm -f *.o  hw5 utAtom utVariable utNumber utStruct utList
+ifeq (${OS}, Windows_NT)
+	del *.o *.exe
+else
+	rm -f *.o hw* utAtom utNumber utVariable utStruct utTerm
+endif
+
 stat:
 	wc *.h *.cpp
