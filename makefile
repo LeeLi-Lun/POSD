@@ -15,10 +15,10 @@ else
 endif
 
 mainAtom.o: mainAtom.cpp utAtom.h atom.h utStruct.h struct.h
-	g++ --std=gun++0x -c mainAtom.cpp
+	g++ -std=gun++0x -c mainAtom.cpp
 
 atom.o: atom.cpp atom.h variable.h
-	g++ --std=gun++0x -c atom.cpp
+	g++ -std=gun++0x -c atom.cpp
 
 utVariable: mainVariable.o atom.o
 ifeq (${OS}, Windows_NT)
@@ -28,7 +28,7 @@ else
 endif
 
 mainVariable.o: mainVariable.cpp utVariable.h variable.h
-		g++ --std=gun++0x -c mainVariable.cpp
+		g++ -std=gun++0x -c mainVariable.cpp
 
 utScanner: mainScanner.o atom.o scanner.h utScanner.h utParser.h parser.h list.h
 ifeq (${OS}, Windows_NT)
@@ -38,7 +38,7 @@ else
 endif
 
 mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h  utParser.h parser.h list.h
-	g++ --std=gun++0x -c mainScanner.cpp
+	g++ -std=gun++0x -c mainScanner.cpp
 
 
 
