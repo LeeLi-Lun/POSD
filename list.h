@@ -1,116 +1,137 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include "atom.h"
-
+#include "term.h"
+#include "number.h"
+#include "variable.h"
+#include <iostream>
 #include <vector>
-#include <list>
-#include <string>
-#include <stdexcept>
 using namespace std;
 
-class List : public Term {
+class List : public Term
+{
 public:
-  string symbol() const {
-
-    string ret = "[";
-    if(_elements.empty()){
-        ret += "]";
-    }else {
-        for (int i = 0; i < _elements.size() -1; i++){
-            ret += _elements[i]->symbol()+", ";
-        }
-        ret += _elements[_elements.size()-1]->symbol()+"]";
+  string symbol() const
+  {
+    string ret = +"[";
+    if (!_elements.empty())
+    {
+      std::vector<Term *>::const_iterator it = _elements.begin();
+      for (; it != _elements.end() - 1; ++it)
+        ret += (*it)->symbol() + ", ";
+      ret += (*it)->symbol();
     }
+    ret += "]";
     return ret;
   }
-
-  string value() const {
-
-    string ret = "[";
-    if(_elements.empty()){
-        ret += "]";
-    }else{
-        for (int i = 0; i < _elements.size() -1; i++){
-            ret += _elements[i]->symbol()+", ";
-        }
-        ret += _elements[_elements.size()-1]->symbol()+"]";
+  string value() const
+  {
+    string ret = +"[";
+    if (!_elements.empty())
+    {
+      std::vector<Term *>::const_iterator it = _elements.begin();
+      for (; it != _elements.end() - 1; ++it)
+        ret += (*it)->value() + ", ";
+      ret += (*it)->value();
     }
-
-    if(ret == "[error]"){
-        ret = "Accessing head in an empty list";
-    }
+    ret += "]";
     return ret;
   }
+  bool match(Term &term)
+  {
+  }
+  bool match(List &list)
+  {
 
-  string getClassName() const {return "List";}
-
-  bool match(Term & term) {
-    if(term.getClassName() == "List"){
-        List * ps = dynamic_cast<List *>(&term);
-        if (ps){
-          if(_elements.size()!= ps->_elements.size())
-            return false;
-          for(int i=0;i<_elements.size();i++){
-            if(_elements[i]->value() != ps->_elements[i]->value()){
-                if(_elements[i]->getClassName() == "Variable" ||
-                    ps->_elements[i]->getClassName() == "Variable"){
-                    _elements[i]->match(*ps->_elements[i]);
-                    continue;
-                }else {
-                    return false;
-                }
-            }
+    if (this == &list)
+    {
+      return true;
+    }
+    else
+    {
+      if (this->size() == list.size())
+      {
+        for (int i = 0; i < list.size(); i++)
+        {
+          if (_elements[i]->isNumber == true && list._elements[i]->isVariable == true)
+          {
+            // list._elements[i]->_symbol =_elements[i]->symbol();
+            return true;
           }
-          return true;
+          else if (_elements[i]->match(*list._elements[i]) == false)
+          {
+            return false;
+          }
         }
-        return false;
-    }else if(term.getClassName() == "Variable"){
-        return term.match(*this);
-    }else{
         return true;
+      }
+      else
+      {
+        return false;
+      }
     }
+  }
+  bool match(Variable &var)
+  {
+    for (int i = 0; i < this->size(); i++)
+    {
+      if (this->count(i).symbol() == var.symbol())
+      {
+        return false;
+      }
+    }
+
+    if (!var._inst)
+    {
+      var._inst = this;
+      return true;
+    }
+    return var._inst->match(*this);
   }
 
 public:
-  List (): _elements() {};
-  List (vector<Term *> elements):_elements(elements){};
-  Term * elements(int index) {
-    return _elements[index];
+  List() : _elements()
+  {
+    isList = true;
   }
-
-  Term * head() const {
-    if(_elements.size()!=0) return _elements[0];
-    else {
-        Atom *errStr = new Atom("Accessing head in an empty list");
-        return errStr;
+  List(vector<Term *> const &elements) : _elements(elements)
+  {
+    isList = true;
+  }
+  Term *head() const
+  {
+    if (_elements.size() == 0)
+    {
+      throw string("Accessing head in an empty list");
     }
-    return 0;
+    return _elements[0];
   }
+  List *tail() const
+  {
+    if (_elements.size() == 0)
+    {
+      throw string("Accessing tail in an empty list");
+    }
 
-  List * tail() const {
-      List *l;
-      vector <Term *> tailList;
-      if(_elements.size()!=0) {
-        for(int i=1;i<_elements.size();i++){
-
-             tailList.push_back(_elements[i]);
-        }
-        l=new List(tailList);
-        return l;
-      }else {
-        Atom *errStr = new Atom("error");
-        tailList.push_back(errStr);
-        l=new List(tailList);
-        return l;
-      }
-
-      return 0;
+    List *ls;
+    vector<Term *> args;
+    for (int i = 1; i < _elements.size(); i++)
+    {
+      args.push_back(_elements[i]);
+    }
+    ls = new List(args);
+    return ls;
   }
-
-private:
+  int size()
+  {
+    return _elements.size();
+  }
+  Term count(int &i)
+  {
+    return *_elements[i];
+  }
   vector<Term *> _elements;
 
+private:
 };
-
 #endif
