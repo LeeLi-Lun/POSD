@@ -1,12 +1,28 @@
 #ifndef NUMBER_H
 #define NUMBER_H
 
-#include "term.h"
+#include <string>
+#include <sstream>
+#include "variable.h"
+#include <typeinfo>
 
-class Number : public Term{
+using std::string;
+class Number : public Term
+{
 public:
-  Number(double db):Term(db) {}
-  string getClassName() const {return "Number";}
+  Number(double db) : Term(db) {
+    isNumber = true;
+  }
+  bool match(Term &a)
+  {
+    if (a.isList){
+      return false;
+     }else if (typeid(a) ==  typeid(Variable)){
+       return a.match(*this);
+    }else{
+      return _symbol == a.symbol();
+    }
+  }
 };
 
 #endif
