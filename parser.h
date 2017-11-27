@@ -150,6 +150,10 @@ private:
     Term* term = createTerm();
     if(term!=nullptr)
     {
+      if(isCOMMA==1){
+        Term * findTerm = find(term);
+        if(findTerm != nullptr) term->match(*findTerm);
+      }
       _terms.push_back(term);
       while((_currentToken = _scanner.nextToken()) == ',') {
         _terms.push_back(createTerm());
