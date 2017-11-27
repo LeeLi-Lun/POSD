@@ -2,49 +2,77 @@
 #define STRUCT_H
 
 #include "atom.h"
+#include "term.h"
 #include <vector>
 #include <string>
 
 using std::string;
 
-class Struct: public Term {
+class Struct : public Term
+{
 public:
-  Struct(Atom name, std::vector<Term *> args): _name(name) {
+  Struct(Atom name) : _name(name)
+  {
+  }
+
+  Struct(Atom name, std::vector<Term *> args) : _name(name)
+  {
     _args = args;
   }
 
-  Term * args(int index) {
+  Term *args(int index)
+  {
     return _args[index];
   }
-  int arity(){
+
+  int arity()
+  {
     return _args.size();
   }
 
-  Atom & name() {
+  Atom &name()
+  {
     return _name;
   }
-  string symbol() const {
+  string symbol() const
+  {
     string ret = _name.symbol() + "(";
-    if(_args.empty()){
-      ret  += ")";
+    std::vector<Term *>::const_iterator it = _args.begin();
+    if (_args.empty())
+    {
+      ret += ")";
       return ret;
     }
-    std::vector<Term *>::const_iterator it = _args.begin();
-    for (; it != _args.end()-1; ++it)
-      ret += (*it)->symbol()+", ";
-    ret  += (*it)->symbol()+")";
+
+    for (; it != _args.end() - 1; ++it)
+      ret += (*it)->symbol() + ", ";
+    ret += (*it)->symbol() + ")";
     return ret;
   }
-  string value() const {
+  string value() const
+  {
     string ret = _name.symbol() + "(";
     std::vector<Term *>::const_iterator it = _args.begin();
-    for (; it != _args.end()-1; ++it){
-        ret += (*it)->value()+", ";
-      ret  += (*it)->value()+")";
+    if (_args.empty())
+    {
+      ret += ")";
+      return ret;
+    }
+
+    for (; it != _args.end() - 1; ++it)
+      ret += (*it)->value() + ", ";
+    ret += (*it)->value() + ")";
     return ret;
   }
-
+  bool match(Term &a)
+  {
+    if (a.isList)
+    {
+      return false;
+    }
   }
+  bool isList = false;
+
 private:
   Atom _name;
   std::vector<Term *> _args;
