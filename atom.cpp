@@ -12,4 +12,5 @@ bool Term::match(Term & a){
     return a.match(*this);
   else
     return symbol() == a.symbol();
-}
+} 
+
