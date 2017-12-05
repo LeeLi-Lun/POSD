@@ -1,10 +1,10 @@
 all: hw7 utIterator
 
-hw7: main.o
+hw7: mainIterator.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw7 main.o -lgtest
+	g++ -o hw7 mainIterator.o -lgtest
 else
-	g++ -o hw7 main.o -lgtest -lpthread
+	g++ -o hw7 mainIterator.o -lgtest -lpthread
 endif
 
 atom.o: atom.cpp atom.h variable.h
