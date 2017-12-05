@@ -24,9 +24,9 @@ public:
     return _elements[index];
   }
   int arity() const {return _elements.size();}
-  Iterator * createIterator();
-  Iterator * createBFSIterator();
-  Iterator * createDFSIterator();
+  Iterator<Term*> * createIterator();
+  Iterator<Term*> * createBFSIterator();
+  Iterator<Term*> * createDFSIterator();
 private:
   vector<Term *> _elements;
 };

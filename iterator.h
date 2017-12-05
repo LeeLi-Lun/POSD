@@ -7,26 +7,22 @@
 #include <queue>
 #include <stack>
 #include <vector>
-
+// #include <algorithm>
+template <class T>
 class Iterator {
 public:
   virtual void first() = 0;
   virtual void next() = 0;
-  virtual Term* currentItem() const = 0;
+  virtual T currentItem() const = 0;
   virtual bool isDone() const = 0;
 };
 
-class BFSIterator :public Iterator{
+class BFSIterator :public Iterator<Term*>{
 public:
   BFSIterator(Term *n):_n(n){}
+
   void first(){
-    Struct *s = dynamic_cast<Struct *>(_n);
-    List *l = dynamic_cast<List *>(_n);
-    if(s){
-      it = s->createIterator();
-    }else if(l){
-      it = l->createIterator();
-    }
+    Iterator<Term*> *it = _n->createIterator();
     for(it->first();!(it->isDone()); it->next()){
       BFSqueue.push(it->currentItem());
     }
@@ -34,16 +30,12 @@ public:
 
   void next(){
     BFSqueue.pop();
-    Struct *s = dynamic_cast<Struct *>(currentItem());
-    List *l = dynamic_cast<List *>(currentItem());
-    if(s||l){
-      if(s){
-        it = s->createIterator();
-      }else if(l){
-        it = l->createIterator();
-      }
-      for(it->first();!(it->isDone()); it->next()){
-        BFSqueue.push(it->currentItem());
+    if(BFSqueue.size()!= 0 ){
+      Iterator<Term*> *it = currentItem()->createIterator();
+      if(it->currentItem()!=nullptr){
+        for(it->first();!(it->isDone()); it->next()){
+          BFSqueue.push(it->currentItem());
+        }
       }
     }
   }
@@ -56,74 +48,62 @@ public:
     return BFSqueue.empty();
   }
 
-private:
+  private:
   std::queue<Term *> BFSqueue;
-  Iterator *it;
   Term* _n;
 };
 
-class DFSIterator :public Iterator{
+class DFSIterator :public Iterator<Term*>{
 public:
   DFSIterator(Term *n):_n(n){}
 
-    void first(){
-      Struct *s = dynamic_cast<Struct *>(_n);
-      List *l = dynamic_cast<List *>(_n);
-      if(s){
-        it = s->createIterator();
-      }else if(l){
-        it = l->createIterator();
-      }
-      for(it->first();!(it->isDone()); it->next()){
-        DFSvector.push_back(it->currentItem());
-      }
-      while(DFSvector.size()!=0){
-        DFSstack.push(DFSvector.back());
-        DFSvector.pop_back();
-      }
+  void first(){
+    Iterator<Term*> *it = _n->createIterator();
+    for(it->first();!(it->isDone()); it->next()){
+      Tempvector.push_back(it->currentItem());
     }
+    while(Tempvector.size()!=0){
+      DFSstack.push(Tempvector.back());
+      Tempvector.pop_back();
+    }
+  }
 
-    void next(){
-      DFSstack.pop();
+  void next(){
+    DFSstack.pop();
+    if(DFSstack.size()!= 0 ){
       Term* _term = currentItem();
-      Struct *s = dynamic_cast<Struct *>(_term);
-      List *l = dynamic_cast<List *>(_term);
-      if(s||l){
+      Iterator<Term*> *it = _term->createIterator();
+      if(it->currentItem()!=nullptr){
         DFSstack.pop();
-        if(s){
-          it = s->createIterator();
-        }else if(l){
-          it = l->createIterator();
-        }
         for(it->first();!(it->isDone()); it->next()){
-          DFSvector.push_back(it->currentItem());
+          Tempvector.push_back(it->currentItem());
         }
-        while( DFSvector.size()!=0 ){
-          DFSstack.push(DFSvector.back());
-          DFSvector.pop_back();
+        //std::reverse(Tempvector.begin(),Tempvector.end());
+        while(Tempvector.size()!=0){
+          DFSstack.push(Tempvector.back());
+          Tempvector.pop_back();
         }
         DFSstack.push(_term);
       }
     }
+  }
 
-    Term * currentItem() const{
-      return DFSstack.top();
-    }
+  Term * currentItem() const{
+    return DFSstack.top();
+  }
 
-    bool isDone() const{
-      return DFSstack.empty();
-    }
+  bool isDone() const{
+    return DFSstack.empty();
+  }
 
-  private:
-    std::stack<Term *> DFSstack;
-    std::vector<Term *> DFSvector;
-    int isNeedToFindDeep;
-    Iterator *it;
-    Term* _n;
+private:
+  std::stack<Term *> DFSstack;
+  std::vector<Term *> Tempvector;
+  Term* _n;
 };
 
 
-class NullIterator :public Iterator{
+class NullIterator :public Iterator<Term*>{
 public:
   NullIterator(Term *n){}
   void first(){}
@@ -137,9 +117,10 @@ public:
 
 };
 
-class StructIterator :public Iterator {
+class StructIterator :public Iterator<Term*> {
 public:
-  friend class Struct;
+  StructIterator(Struct *s): _index(0), _s(s) {}
+
   void first() {
     _index = 0;
   }
@@ -156,14 +137,14 @@ public:
     _index++;
   }
 private:
-  StructIterator(Struct *s): _index(0), _s(s) {}
   int _index;
   Struct* _s;
 };
 
-class ListIterator :public Iterator {
+class ListIterator :public Iterator<Term*> {
 public:
-  friend class List;
+  ListIterator(List *list): _index(0), _list(list) {}
+
   void first() {
     _index = 0;
   }
@@ -180,7 +161,6 @@ public:
     _index++;
   }
 private:
-  ListIterator(List *list): _index(0), _list(list) {}
   int _index;
   List* _list;
 };

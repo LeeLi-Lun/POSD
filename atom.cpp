@@ -3,7 +3,7 @@
 #include "iterator.h"
 #include <typeinfo>
 
-Iterator * Term::createIterator(){
+Iterator<Term*> * Term::createIterator(){
   return new NullIterator(this);
 }
 
@@ -12,5 +12,4 @@ bool Term::match(Term & a){
     return a.match(*this);
   else
     return symbol() == a.symbol();
-} 
-
+}

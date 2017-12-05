@@ -40,9 +40,9 @@ public:
     return ret;
   }
   int arity() const {return _args.size();}
-  Iterator * createIterator();
-  Iterator * createBFSIterator();
-  Iterator * createDFSIterator();
+  Iterator<Term*> * createIterator();
+  Iterator<Term*> * createBFSIterator();
+  Iterator<Term*> * createDFSIterator();
 private:
   Atom _name;
   std::vector<Term *> _args;
