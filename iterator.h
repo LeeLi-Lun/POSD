@@ -24,26 +24,25 @@ public:
   void first(){
     Iterator<Term*> *it = _n->createIterator();
     for(it->first();!(it->isDone()); it->next()){
+      Tempqueue.push(it->currentItem());
       BFSqueue.push(it->currentItem());
     }
-    Iterator<Term*> *it2 = BFSqueue.front()->createIterator();
-    if(!(it2->isDone())){
-      for(it2->first();!(it2->isDone()); it2->next()){
-        BFSqueue.push(it2->currentItem());
+    while(Tempqueue.size()!=0){
+      Iterator<Term*> *it2 =  Tempqueue.front()->createIterator();
+      Tempqueue.pop();
+      if(!(it2->isDone())){
+        for(it2->first();!(it2->isDone()); it2->next()){
+          Tempqueue.push(it2->currentItem());
+          BFSqueue.push(it2->currentItem());
+        }
+      }else{
+        // BFSqueue.push(it2->currentItem());
       }
     }
   }
 
   void next(){
     BFSqueue.pop();
-    if(BFSqueue.size()!= 0 ){
-      Iterator<Term*> *it = currentItem()->createIterator();
-      if(it->currentItem()!=nullptr){
-        for(it->first();!(it->isDone()); it->next()){
-          BFSqueue.push(it->currentItem());
-        }
-      }
-    }
   }
 
   Term * currentItem() const{
@@ -56,6 +55,8 @@ public:
 
   private:
   std::queue<Term *> BFSqueue;
+  std::queue<Term *> Tempqueue;
+  int _index;
   Term* _n;
 };
 
@@ -65,58 +66,49 @@ public:
 
   void first(){
     Iterator<Term*> *it = _n->createIterator();
-    Term* _term = it->currentItem();
     for(it->first();!(it->isDone()); it->next()){
       Tempvector.push_back(it->currentItem());
     }
     while(Tempvector.size()!=0){
-      DFSstack.push(Tempvector.back());
+      // DFSstack.push(Tempvector.back());
+      Tempstack.push(Tempvector.back());
       Tempvector.pop_back();
     }
-    Iterator<Term*> *it2 = DFSstack.top()->createIterator();
-    if(!(it2->isDone())){
-      DFSstack.pop();
-      for(it2->first();!(it2->isDone()); it2->next()){
-        Tempvector.push_back(it2->currentItem());
-      }
-      while(Tempvector.size()!=0){
-        DFSstack.push(Tempvector.back());
-        Tempvector.pop_back();
-      }
-      DFSstack.push(_term);
-     }
+    while(Tempstack.size()!=0){
+      Iterator<Term*> *it2 = Tempstack.top()->createIterator();
+      Term* _term = Tempstack.top();
+        if(!(it2->isDone())){
+          Tempstack.pop();
+          for(it2->first();!(it2->isDone()); it2->next()){
+            Tempvector.push_back(it2->currentItem());
+          }
+          while(Tempvector.size()!=0){
+            Tempstack.push(Tempvector.back());
+            Tempvector.pop_back();
+          }
+          DFSqueue.push(_term);
+        }else{
+          Tempstack.pop();
+          DFSqueue.push(_term);
+        }
+    }
   }
 
   void next(){
-    DFSstack.pop();
-    if(DFSstack.size()!= 0 ){
-      Term* _term = currentItem();
-      Iterator<Term*> *it = _term->createIterator();
-      if(it->currentItem()!=nullptr){
-        DFSstack.pop();
-        for(it->first();!(it->isDone()); it->next()){
-          Tempvector.push_back(it->currentItem());
-        }
-        //std::reverse(Tempvector.begin(),Tempvector.end());
-        while(Tempvector.size()!=0){
-          DFSstack.push(Tempvector.back());
-          Tempvector.pop_back();
-        }
-        DFSstack.push(_term);
-      }
-    }
+    DFSqueue.pop();
   }
 
   Term * currentItem() const{
-    return DFSstack.top();
+    return DFSqueue.front();
   }
 
   bool isDone() const{
-    return DFSstack.empty();
+    return DFSqueue.empty();
   }
 
 private:
-  std::stack<Term *> DFSstack;
+  std::queue<Term *> DFSqueue;
+  std::stack<Term *> Tempstack;
   std::vector<Term *> Tempvector;
   Term* _n;
 };
