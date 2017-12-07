@@ -31,7 +31,6 @@ public:
       for(it2->first();!(it2->isDone()); it2->next()){
         BFSqueue.push(it2->currentItem());
       }
-      }
     }
   }
 
