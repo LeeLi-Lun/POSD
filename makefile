@@ -18,7 +18,7 @@ struct.o:struct.cpp struct.h
 	#g++ -o utIterator mainIterator.o atom.o list.o struct.o -lgtest -lpthread
 
 mainIterator.o: mainIterator.cpp utIterator.h iterator.h
-	g++ -std=c++11 -c mainIterator.cpp
+	g++ -std=gnu++0x -c mainIterator.cpp
 
 clean:
 ifeq (${OS}, Windows_NT)
