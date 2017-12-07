@@ -72,9 +72,9 @@ public:
       DFSstack.push(Tempvector.back());
       Tempvector.pop_back();
     }
+    Term* _term = currentItem();
     Iterator<Term*> *it2 = DFSstack.top()->createIterator();
     if(!(it2->isDone())){
-      Term* _term = it2->currentItem();
       DFSstack.pop();
       for(it2->first();!(it2->isDone()); it2->next()){
         Tempvector.push_back(it2->currentItem());
