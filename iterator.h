@@ -26,7 +26,7 @@ public:
     for(it->first();!(it->isDone()); it->next()){
       BFSqueue.push(it->currentItem());
     }
-    if(BFSqueue.front()->createIterator()->currentItem()!=nullptr){
+    if(!(BFSqueue.front()->createIterator()->isDone())){
       for(it->first();!(it->isDone()); it->next()){
         BFSqueue.push(it->currentItem());
       }
