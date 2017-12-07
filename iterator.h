@@ -26,7 +26,7 @@ public:
     for(it->first();!(it->isDone()); it->next()){
       BFSqueue.push(it->currentItem());
     }
-    Iterator<Term*> *it2 = BFSqueue.front()->createIterator()
+    Iterator<Term*> *it2 = BFSqueue.front()->createIterator();
     if(!(it2->isDone())){
       for(it2->first();!(it2->isDone()); it2->next()){
         BFSqueue.push(it2->currentItem());
