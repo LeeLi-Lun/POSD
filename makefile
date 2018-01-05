@@ -8,7 +8,7 @@ else
 endif
 
 mainAtom.o: mainAtom.cpp utList.h utAtom.h atom.h utStruct.h struct.h
-	g++ -std=gnu++0 -c mainAtom.cpp
+	g++ -std=gnu++0x -c mainAtom.cpp
 
 atom.o: atom.cpp atom.h variable.h
 	g++ --std=gnu++0x -c atom.cpp
