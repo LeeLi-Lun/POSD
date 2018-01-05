@@ -1,4 +1,4 @@
-all: madRace utAtom utVariable utScanner utIterator hw8
+all: hw8
 
 hw8:mainScanner.o atom.o list.o struct.o scanner.h  parser.h expression.h shell.h
 ifeq (${OS}, Windows_NT)
