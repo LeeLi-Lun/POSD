@@ -4,7 +4,7 @@ hw8:mainScanner.o atom.o list.o struct.o scanner.h  parser.h expression.h shell.
 ifeq (${OS}, Windows_NT)
 	g++ -o hw8 mainScanner.o atom.o list.o struct.o -lgtest -lpthread
 else
-	g++ -o hw8 mainScanner.o atom.o list.o struct.o -lgtest -lpthread
+	g++ -o hw8 mainScanner.o atom.o list.o struct.o -lgtest
 endif
 
 mainAtom.o: mainAtom.cpp utList.h utAtom.h atom.h utStruct.h struct.h
