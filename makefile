@@ -1,4 +1,4 @@
-all:  hw8
+all: hw8 shell
 
 hw8:mainScanner.o atom.o list.o struct.o scanner.h  parser.h expression.h shell.h
 ifeq (${OS}, Windows_NT)
@@ -7,8 +7,18 @@ else
 	g++ -o hw8 mainScanner.o atom.o list.o struct.o -lgtest -lpthread
 endif
 
+shell: main.o atom.o list.o struct.o scanner.h  parser.h expression.h shell.h
+ifeq (${OS}, Windows_NT)
+	g++ -o shell main.o atom.o list.o struct.o -lgtest
+else
+	g++ -o shell main.o atom.o list.o struct.o -lgtest -lpthread
+endif
+
 mainAtom.o: mainAtom.cpp utList.h utAtom.h atom.h utStruct.h struct.h
 	g++ -std=gnu++0x -c mainAtom.cpp
+
+main.o: main.cpp  scanner.h  atom.h struct.h variable.h   expression.h  parser.h shell.h
+		g++ -std=gnu++0x -c main.cpp
 
 atom.o: atom.cpp atom.h variable.h
 	g++ --std=gnu++0x -c atom.cpp
@@ -26,7 +36,7 @@ clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o madRace utAtom utVariable utScanner hw8
+	rm -f *.o madRace utAtom utVariable utScanner hw8 shell
 endif
 
 stat:
