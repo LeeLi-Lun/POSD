@@ -1,6 +1,8 @@
 #ifndef EXPRESSION_H
 #define EXPRESSION_H
 #include "shell.h"
+
+using namespace std;
 /*
  *
  * Here are some examples for exception handling,
@@ -285,44 +287,49 @@ TEST(Shell, disjunctionMatching1) {
 //     p.buildExpression();
 //
 //     Shell sh(p);
-//      string result = sh.getResult();
-//
-//      ASSERT_EQ("X = 1.", result);
+//      // string result = sh.getResult();
+//      //
+//      // ASSERT_EQ("X = 1.", result);
 //   } catch (std::string &msg) {
 //     FAIL() << msg;
 //   }
 // }
 
-// TEST(Shell, disjunctionMatching3) {
-//   Scanner s("X=1; X=1, Y=2.");
-//   Parser p(s);
-//   try {
-//     p.buildExpression();
-//
-//     Shell sh(p);
-//     string result = sh.getResult();
-//
-//     ASSERT_EQ("X = 1; X = 1, Y = 2.", result);
-//   } catch (std::string &msg) {
-//     FAIL() << msg;
-//   }
-// }
+TEST(Shell, disjunctionMatching3) {
+  Scanner s("X=1; X=1, Y=2.");
+  Parser p(s);
+  try {
+    p.buildExpression();
 
-// TEST(Shell, disjunctionMatching4) {
-//   Scanner s("X=1; X=3, X=X.");
-//   Parser p(s);
-//   try {
-//     p.buildExpression();
-//
-//     Shell sh(p);
-//     string result = sh.getResult();
-//
-//     ASSERT_EQ("X = 1; X = 3.", result);
-//   } catch (std::string &msg) {
-//     FAIL() << msg;
-//   }
-// }
-//
+// std::cout << p.getExpressionTree()->getChar()<<std::endl;
+// std::cout << p.getExpressionTree()->getrightEXP()->getChar()<<std::endl;
+// std::cout << p.getExpressionTree()->getleftEXP()->getright()->symbol()<<std::endl;
+// std::cout << p.getExpressionTree()->getrightEXP()->getrightEXP()->getright()->symbol()<<std::endl;
+
+    Shell sh(p);
+    string result = sh.getResults();
+
+     ASSERT_EQ("X = 1; X = 1, Y = 2.", result);
+  } catch (std::string &msg) {
+    FAIL() << msg;
+  }
+}
+
+TEST(Shell, disjunctionMatching4) {
+  Scanner s("X=1; X=3, X=X.");
+  Parser p(s);
+  try {
+    p.buildExpression();
+
+    Shell sh(p);
+    string result = sh.getResults();
+
+    ASSERT_EQ("X = 1; X = 3.", result);
+  } catch (std::string &msg) {
+    FAIL() << msg;
+  }
+}
+
 // TEST(Shell, disjunctionMatching5) {
 //   Scanner s("X=1; X=X; Y=2.");
 //   Parser p(s);
@@ -337,7 +344,7 @@ TEST(Shell, disjunctionMatching1) {
 //     FAIL() << msg;
 //   }
 // }
-//
+
 // TEST(Shell, disjunctionMatching6) {
 //   Scanner s("X=1; X=1, X=2; Z=3.");
 //   Parser p(s);
@@ -345,7 +352,7 @@ TEST(Shell, disjunctionMatching1) {
 //     p.buildExpression();
 //
 //     Shell sh(p);
-//     string result = sh.getResult();
+//     string result = sh.getResults();
 //
 //     ASSERT_EQ("X = 1; Z = 3.", result);
 //   } catch (std::string &msg) {
@@ -353,7 +360,7 @@ TEST(Shell, disjunctionMatching1) {
 //   }
 // }
 
-//
+// //
 TEST(Shell, exceptionMissingPeriodToken1) {
   Scanner s("X=1");
   Parser p(s);

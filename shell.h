@@ -11,30 +11,48 @@ public:
   Shell(Parser p): _p(p){
     _p.getExpressionTree()->evaluate();
   }
+  string getResults(){
+    string _reslut;
+    string _temp;
+    root = _p.getExpressionTree();
+    for(temp = root; temp->getChar()!= "=";temp = temp->getrightEXP()){
+        _reslut += ( temp->getleftEXP()->getMatchEXPString());
+        _reslut += temp->getChar();
+        string_it ++ ;
+    }
+    if( temp->getMatchEXPString() != "true"){
+      _reslut += ( temp->getMatchEXPString());
+      _reslut += ".";
+    }
+    if(temp->getMatchEXPString() == "true"){
+      _reslut.erase(_reslut.begin()+(string_it*6));
+      _reslut.replace(_reslut.begin()+(string_it*6),_reslut.begin()+(string_it*6)+1,".");
+    }
+
+    return _reslut;
+  }
 
   string getResult(){
     string _reslut;
     string _temp;
+
     root = _p.getExpressionTree();
+
+    if (root->getChar()==";"){
+      return getResults();
+    }
     for(temp = root; temp->getChar()!= "=";temp = temp->getleftEXP()){
           _exptemp.push(temp);
-          // if (temp->getChar()==",")
+
     }
     _temp = temp->getMatchEXPString();
     _reslut += _temp;
     if(temp->getMatchEXPString()=="true" && (!_exptemp.empty())){
       _reslut = "";
     }
-    // if (temp->getChar()==","){
-    //   isCon = 1;
-    // }
     while(!_exptemp.empty()){
       temp = _exptemp.top();
-      if (temp->getChar()==";"){
-        isDisCon = 1;
-      }
       if (temp->getrightEXP()->getMatchEXPString() == "false"){
-          if(!isDisCon)
             _reslut = "false";
       }else if( _reslut=="" && temp->getrightEXP()->getMatchEXPString() == "true"){
           _reslut = "true";
@@ -66,8 +84,7 @@ public:
 
 private:
   Parser _p;
-  int isCon = 0;
-  int isDisCon = 0;
+  int string_it =0;
   Exp* root;
   Exp* temp;
   stack<Exp*> _exptemp;
