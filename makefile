@@ -8,16 +8,16 @@ else
 endif
 
 mainAtom.o: mainAtom.cpp utList.h utAtom.h atom.h utStruct.h struct.h
-	g++ -std=c++11 -c mainAtom.cpp
+	g++ -std=gnu++0 -c mainAtom.cpp
 
 atom.o: atom.cpp atom.h variable.h
-	g++ -std=c++11 -c atom.cpp
+	g++ --std=gnu++0x -c atom.cpp
 mainVariable.o: mainVariable.cpp utVariable.h variable.h
-		g++ -std=c++11 -c mainVariable.cpp
+		g++ -std=gnu++0x -c mainVariable.cpp
 list.o:list.cpp list.h
-		g++ -std=c++11 -c list.cpp
+		g++ -std=gnu++0x -c list.cpp
 struct.o:struct.cpp struct.h
-		g++ -std=c++11 -c struct.cpp
+		g++ -std=gnu++0x -c struct.cpp
 
 mainScanner.o: mainScanner.cpp  scanner.h  atom.h struct.h variable.h   expression.h  parser.h shell.h
 		g++ -std=gnu++0x -c mainScanner.cpp
